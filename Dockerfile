@@ -1,9 +1,10 @@
-FROM golang:1.7
+FROM golang:1.8 as builder
 
 ENV GLIDE_VERSION 0.10.2
 ENV APP_VERSION 1.0.2
 
 ADD https://github.com/Masterminds/glide/releases/download/${GLIDE_VERSION}/glide-${GLIDE_VERSION}-linux-amd64.tar.gz /tmp/glide-${GLIDE_VERSION}-linux-amd64.tar.gz
+
 RUN cd /tmp && \
     tar -zxvf /tmp/glide-${GLIDE_VERSION}-linux-amd64.tar.gz && \
     cp /tmp/linux-amd64/glide /usr/local/bin/glide && \
@@ -16,4 +17,6 @@ RUN cd /go/src/github.com/apiaryio/heroku-datadog-drain-go && \
     glide install && \
     go install
 
-ENTRYPOINT ["/go/bin/heroku-datadog-drain-go"]
+FROM scratch
+COPY --from=builder /go/bin/heroku-datadog-drain-go .
+CMD ["./heroku-datadog-drain-go"]
