@@ -19,7 +19,7 @@ const (
 var routerMetricsKeys = []string{"dyno", "method", "status", "path", "host", "code", "desc", "at"}
 var sampleMetricsKeys = []string{"source"}
 var scalingMetricsKeys = []string{"mailer", "web"}
-var customMetricsKeys = []string{"media_type", "output_type", "route", "version"}
+var customMetricsKeys = []string{"media_type", "output_type", "path", "version"}
 
 type Client struct {
 	*statsd.Client
