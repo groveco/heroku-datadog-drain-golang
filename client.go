@@ -214,7 +214,7 @@ Tags:
 		if strings.Index(k, "#") != -1 {
 			if vnum, err := strconv.ParseInt(v.Val, 10, 32); err == nil {
 				m := strings.Replace(strings.Split(k, "#")[1], "_", ".", -1)
-				err := c.Count(*data.prefix+"app.metric."+m, vnum, tags, sampleRate)
+				err := c.Count(*data.prefix+m, vnum, tags, sampleRate)
 				if err != nil {
 					log.WithField("error", err).Warning("Failed to send Gauge")
 				}
