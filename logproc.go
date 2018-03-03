@@ -26,10 +26,12 @@ type logMetrics struct {
 var dynoNumber *regexp.Regexp = regexp.MustCompile(`\.\d+$`)
 
 func (lm *logMetrics) HandleLogfmt(key, val []byte) error {
-
 	i := bytes.LastIndexFunc(val, isDigit)
+
 	if i == -1 {
 		lm.metrics[string(key)] = logValue{string(val), ""}
+	} else if len(val) > i+1 && string(val[i+1]) == "_" {
+		lm.metrics[string(key)] = logValue{string(val[:i+1]) + string(val[i+1:]), ""}
 	} else {
 		lm.metrics[string(key)] = logValue{string(val[:i+1]), string(val[i+1:])}
 	}
@@ -50,6 +52,7 @@ func isDigit(r rune) bool {
 
 func parseMetrics(typ int, ld *logData, data *string, out chan *logMetrics) {
 	var myslice []string
+
 	lm := logMetrics{typ, ld.app, ld.tags, ld.prefix, make(map[string]logValue, 5), myslice}
 ;
 	if typ == releaseMsg {
@@ -65,10 +68,12 @@ func parseMetrics(typ int, ld *logData, data *string, out chan *logMetrics) {
 		}).Warn()
 		return
 	}
+
 	if source, ok := lm.metrics["source"]; ok {
 		tags := append(*lm.tags, "type:"+dynoNumber.ReplaceAllString(source.Val, ""))
 		lm.tags = &tags
 	}
+
 	out <- &lm
 }
 
