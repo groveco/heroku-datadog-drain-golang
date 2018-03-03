@@ -36,7 +36,7 @@ If you already have a StatsD client running, see the STATSD_URL configuration op
 
 ```
 heroku buildpacks:add heroku/go
-heroku buildpacks:add --index 1 https://github.com/miketheman/heroku-buildpack-datadog.git
+heroku buildpacks:add --index 1 https://github.com/DataDog/heroku-buildpack-datadog.git#fd7d0a1a6e78d15858e2a2e2ba036e35faf7f25b
 heroku config:set HEROKU_APP_NAME=$(heroku apps:info|grep ===|cut -d' ' -f2)
 heroku config:add DATADOG_API_KEY=<your-Datadog-API-key>
 ```
