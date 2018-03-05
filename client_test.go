@@ -27,7 +27,7 @@ var statsdTests = []struct {
 				"path":    {"/foo", ""},
 				"connect": {"1", "ms"},
 				"service": {"37", "ms"},
-				"status": {"401", ""},
+				"status":  {"401", ""},
 				"garbage": {"bar", ""},
 			},
 			events,
@@ -50,7 +50,7 @@ var statsdTests = []struct {
 			events,
 		},
 		Expected: []string{
-			"prefix.app.metric.load.avg.2m:0.010000|g|#tag1,tag2",
+			"prefix.load.avg.2m:0.010000|g|#tag1,tag2",
 		},
 	},
 	{
@@ -66,7 +66,7 @@ var statsdTests = []struct {
 			events,
 		},
 		Expected: []string{
-			"prefix.app.metric.load.avg.1m:0.010000|g|#tag1,tag2",
+			"prefix.load.avg.1m:0.010000|g|#tag1,tag2",
 		},
 	},
 	{
@@ -82,7 +82,7 @@ var statsdTests = []struct {
 			events,
 		},
 		Expected: []string{
-			"prefix.app.metric.clicks:1|c|#tag1,tag2",
+			"prefix.clicks:1|c|#tag1,tag2",
 		},
 	},
 	{
@@ -98,7 +98,7 @@ var statsdTests = []struct {
 			events,
 		},
 		Expected: []string{
-			"prefix.app.metric.temperature:1.300000|h|#tag1,tag2",
+			"prefix.temperature:1.300000|h|#tag1,tag2",
 		},
 	},
 	{
@@ -146,8 +146,7 @@ var statsdTests = []struct {
 			&app,
 			&tags,
 			&prefix,
-			map[string]logValue{
-			},
+			map[string]logValue{},
 			[]string{
 				"Release v1 created by foo@bar",
 			},
@@ -156,7 +155,6 @@ var statsdTests = []struct {
 			"_e{13,29}:app/api: test|Release v1 created by foo@bar|#tag1,tag2",
 		},
 	},
-
 }
 
 func TestStatsdClient(t *testing.T) {

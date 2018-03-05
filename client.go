@@ -255,7 +255,7 @@ Tags:
 				keySplit := strings.Split(k, "#")
 				metricType := keySplit[0]
 				m := strings.Replace(keySplit[1], "_", ".", -1)
-				err = c.sendMetric(metricType, *data.prefix+"app.metric."+m, vnum, tags)
+				err = c.sendMetric(metricType, *data.prefix+m, vnum, tags)
 				if err != nil {
 					log.WithField("error", err).Warning("Failed to send Gauge")
 				}
