@@ -214,11 +214,11 @@ func (c *Client) sendScalingMsg(data *logMetrics) {
 
 func (c *Client) sendMetric(metricType string, metricName string, value float64, tags []string) error {
 	switch metricType {
-	case "metric", "sample":
+	case "sample":
 		return c.Gauge(metricName, value, tags, sampleRate)
 	case "measure":
 		return c.Histogram(metricName, value, tags, sampleRate)
-	case "count":
+	case "metric", "count":
 		return c.Count(metricName, int64(value), tags, sampleRate)
 	default:
 		return errors.New("Unknown metric type" + metricType)
