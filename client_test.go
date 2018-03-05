@@ -45,7 +45,7 @@ var statsdTests = []struct {
 			&tags,
 			&prefix,
 			map[string]logValue{
-				"metric#load_avg_2m": {"0.01", ""},
+				"sample#load_avg_2m": {"0.01", ""},
 			},
 			events,
 		},
@@ -135,8 +135,8 @@ var statsdTests = []struct {
 		},
 		Expected: []string{
 			"_e{16,39}:heroku/api: test|Scaling dynos mailer=1 web=3 by foo@bar|#tag1,tag2",
-			"prefix.heroku.dyno.mailer:1.000000|g|#tag1,tag2",
-			"prefix.heroku.dyno.web:3.000000|g|#tag1,tag2",
+			"prefix.heroku.dyno.scale:1.000000|g|#tag1,tag2,type:mailer",
+			"prefix.heroku.dyno.scale:3.000000|g|#tag1,tag2,type:web",
 		},
 	},
 	{

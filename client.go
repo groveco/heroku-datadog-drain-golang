@@ -197,7 +197,8 @@ func (c *Client) sendScalingMsg(data *logMetrics) {
 		if v, ok := data.metrics[mk]; ok {
 			vnum, err := strconv.ParseFloat(v.Val, 10)
 			if err == nil {
-				err = c.Gauge(*data.prefix+"heroku.dyno."+mk, vnum, tags, sampleRate)
+				ntags := append(tags, "type:"+mk)
+				err = c.Gauge(*data.prefix+"heroku.dyno.scale", vnum, ntags, sampleRate)
 				if err != nil {
 					log.WithField("error", err).Info("Failed to send Gauge")
 				}
