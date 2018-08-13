@@ -1,0 +1,7 @@
+##Log section
+logs:
+  - type: file
+    path: /app/log/*.log
+    source: ruby
+    sourcecategory: sourcecode
+    
