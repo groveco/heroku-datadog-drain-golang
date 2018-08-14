@@ -2,6 +2,6 @@
 logs:
   - type: file
     path: /app/log/*.log
-    source: ruby
+    source: go
     sourcecategory: sourcecode
     
