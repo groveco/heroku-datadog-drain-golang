@@ -1,6 +1,0 @@
-##Log section
-logs:
-  - type: file
-    path: /app/log/*.log
-    source: go
-    sourcecategory: sourcecode
