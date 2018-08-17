@@ -1,0 +1,9 @@
+##Log section
+logs:
+
+  - type: file
+    path: /app/heroku-dd.txt
+    service: epantry-prod
+    source: python
+    sourcecategory: sourcecode
+    tags: env:prod
