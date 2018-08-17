@@ -1,0 +1,6 @@
+##Log section
+logs:
+  - type: file
+    path: /app/heroku-dd.txt
+    source: python
+    sourcecategory: sourcecode
