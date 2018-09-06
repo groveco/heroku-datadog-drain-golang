@@ -1,2 +1,2 @@
 web: heroku-datadog-drain-golang
-clock: node clock.js
+/bin/sh: 1: ./herokulogfile.sh
