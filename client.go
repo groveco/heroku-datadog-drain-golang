@@ -24,7 +24,6 @@ const (
 var routerMetricsKeys = []string{"dyno", "method", "status", "path", "host", "code", "desc", "at"}
 var sampleMetricsKeys = []string{"source"}
 var scalingMetricsKeys = []string{"mailer", "web"}
-var customMetricsKeys = []string{"media_type", "output_type", "path", "version", "name"}
 
 type Client struct {
 	*statsd.Client
@@ -234,12 +233,8 @@ Tags:
 		if strings.Index(k, "tag#") != -1 {
 			if _, err := strconv.Atoi(v.Val); err != nil {
 				m := strings.Replace(strings.Split(k, "tag#")[1], "_", ".", -1)
-				for _, mk := range customMetricsKeys {
-					if m == mk {
-						tags = append(tags, mk+":"+v.Val)
-						continue Tags
-					}
-				}
+				tags = append(tags, m+":"+v.Val)
+				continue Tags
 			}
 		}
 	}
